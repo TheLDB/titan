@@ -1,4 +1,6 @@
-pub struct Collection;
+pub struct Collection {
+    floor_price: json::JsonValue,
+}
 
 impl Collection {
     pub async fn get(collection_slug: &str) -> Result<(), Box<dyn std::error::Error>>  {
