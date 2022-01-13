@@ -23,7 +23,7 @@ use serenity::{
 pub struct Handler;
 use crate::helpers;
 
-pub struct returnable {
+pub struct Returnable {
     exists: Option<bool>,
     collection: Option<helpers::get_collection::Collection>,
 }
@@ -43,24 +43,25 @@ impl EventHandler for Handler {
                     .expect("Expected collection slug?");
 
                 if let ApplicationCommandInteractionDataOptionValue::String(slug) = options {
-                    let result = helpers::get_collection::Collection::get(slug).await;
+                    let lower = slug.to_lowercase();
+                    let result = helpers::get_collection::Collection::get(&lower.to_string()).await;
                     // let unwr_res = result.unwrap();
                     if let Ok(unwr_res) = result {
                         if unwr_res.status == 200 {
-                            returnable {
+                            Returnable {
                                 exists: Some(true),
                                 collection: Some(unwr_res)
                             }
                         }
                         else {
-                            returnable {
+                            Returnable {
                                 exists: Some(false),
                                 collection: None,
                             }
                         }
                     }
                     else {
-                        returnable {
+                        Returnable {
                             exists: Some(false),
                             collection: None,
                         }
@@ -68,14 +69,14 @@ impl EventHandler for Handler {
                     
                 }
                 else {
-                    returnable {
+                    Returnable {
                         exists: Some(false),
                         collection: None,
                     }
                 }
                 },
                 // if no match
-                _ => returnable {
+                _ => Returnable {
                     exists: Some(false),
                     collection: None,
                 },
@@ -89,7 +90,9 @@ impl EventHandler for Handler {
                                 .kind(InteractionResponseType::ChannelMessageWithSource)
                                 .interaction_response_data(|message| {
                                     if let Some(or) = content.collection {
-                                        message.content(or.fp)
+                                        let name = or.name;
+                                        let formatted = format!("{}'s Floor Price: {} Ξ", name.replace('"', ""), or.fp);
+                                        message.content(formatted)
                                     }
                                     else {
                                         message.content("Couldn't find collection!")
