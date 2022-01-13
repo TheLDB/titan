@@ -1,7 +1,5 @@
 extern crate dotenv;
 
-use std::env;
-
 use serenity::{
     async_trait,
     model::{
@@ -9,7 +7,7 @@ use serenity::{
         id::GuildId,
         interactions::{
             application_command::{
-                ApplicationCommand,
+                // ApplicationCommand,
                 ApplicationCommandInteractionDataOptionValue,
                 ApplicationCommandOptionType,
             },
@@ -20,11 +18,12 @@ use serenity::{
     prelude::*,
 };
 
+use std::env;
+use dotenv::dotenv;
 pub struct Handler;
 use crate::helpers;
 
 pub struct Returnable {
-    exists: Option<bool>,
     collection: Option<helpers::get_collection::Collection>,
 }
 #[async_trait]
@@ -49,20 +48,17 @@ impl EventHandler for Handler {
                     if let Ok(unwr_res) = result {
                         if unwr_res.status == 200 {
                             Returnable {
-                                exists: Some(true),
                                 collection: Some(unwr_res)
                             }
                         }
                         else {
                             Returnable {
-                                exists: Some(false),
                                 collection: None,
                             }
                         }
                     }
                     else {
                         Returnable {
-                            exists: Some(false),
                             collection: None,
                         }
                     }
@@ -70,14 +66,13 @@ impl EventHandler for Handler {
                 }
                 else {
                     Returnable {
-                        exists: Some(false),
                         collection: None,
                     }
                 }
                 },
                 // if no match
                 _ => Returnable {
-                    exists: Some(false),
+                    // exists: Some(false),
                     collection: None,
                 },
             };
@@ -125,7 +120,7 @@ impl EventHandler for Handler {
 
     async fn ready(&self, ctx: Context, ready: Ready) {
         println!("{} is connected!", ready.user.name);
-
+        dotenv().ok();
         let guild_id = GuildId(
             env::var("GUILD_ID")
                 .expect("Expected GUILD_ID in environment")
@@ -149,19 +144,19 @@ impl EventHandler for Handler {
         })
         .await;
 
-        println!("I now have the following guild slash commands: {:#?}", _commands);
+        // println!("I now have the following guild slash commands: {:#?}", _commands);
 
-        let _guild_command =
-            ApplicationCommand::create_global_application_command(&ctx.http, |command| {
-                command.name("collection-global").description("Get information about an OpenSea Collection").create_option(|option| {
-                    option
-                        .name("slug")
-                        .description("The collection slug to fetch")
-                        .kind(ApplicationCommandOptionType::String)
-                        .required(true)
-                })
-            })
-            .await;
+        // let _guild_command =
+        //     ApplicationCommand::create_global_application_command(&ctx.http, |command| {
+        //         command.name("collection-global").description("Get information about an OpenSea Collection").create_option(|option| {
+        //             option
+        //                 .name("slug")
+        //                 .description("The collection slug to fetch")
+        //                 .kind(ApplicationCommandOptionType::String)
+        //                 .required(true)
+        //         })
+        //     })
+        //     .await;
 
         // println!("I created the following global slash command: {:#?}", guild_command);
     }
