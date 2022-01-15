@@ -1,32 +1,27 @@
 extern crate dotenv;
 
 use dotenv::dotenv;
-use std::env;
-
-pub mod helpers;
-
-use helpers::slash_commands;
-use serenity::{
-    prelude::*,
-};
+pub mod commands;
 
 #[tokio::main]
 async fn main() {
     dotenv().ok();
-    let token = env::var("DISCORD_TOKEN").expect("Expected a token in the environment");
-
-    let application_id: u64 = env::var("APPLICATION_ID")
-        .expect("Expected an application id in the environment")
-        .parse()
-        .expect("application id is not a valid id");
-
-    let mut client = Client::builder(token)
-        .event_handler(slash_commands::Handler)
-        .application_id(application_id)
-        .await
-        .expect("Error creating client");
-
-    if let Err(why) = client.start().await {
-        println!("Client error: {:?}", why);
-    }
-} 
+    poise::Framework::build()
+        .token(std::env::var("DISCORD_BOT_TOKEN").unwrap())
+        .user_data_setup(move |_ctx, _ready, _framework| Box::pin(async move { Ok(()) }))
+        .options(poise::FrameworkOptions {
+            commands: vec![
+                commands::age::age(),
+                commands::collection::collection(),
+                commands::register::register(),
+            ],
+            // configure framework here
+            prefix_options: poise::PrefixFrameworkOptions {
+                prefix: Some("~".into()),
+                ..Default::default()
+            },
+            ..Default::default()
+        })
+        
+        .run().await.unwrap();
+}
