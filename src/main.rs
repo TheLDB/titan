@@ -4,6 +4,7 @@ use dotenv::dotenv;
 use std::env;
 
 pub mod helpers;
+
 use helpers::slash_commands;
 use serenity::{
     prelude::*,
@@ -19,7 +20,6 @@ async fn main() {
         .parse()
         .expect("application id is not a valid id");
 
-    // Build our client.
     let mut client = Client::builder(token)
         .event_handler(slash_commands::Handler)
         .application_id(application_id)

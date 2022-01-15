@@ -3,7 +3,7 @@ use serde_json::{Value};
 #[derive(Debug)]
 pub struct Collection {
     pub status: reqwest::StatusCode,
-    pub name: String,
+    pub name: Value,
     pub fp: Value,
     pub stats: Value,
 }
@@ -17,7 +17,7 @@ impl Collection {
         let v: Value = serde_json::from_str(&body)?;
         let new = Collection {
             status: status,
-            name: v["collection"]["name"].to_string(),
+            name: v["collection"]["name"].clone(),
             fp: v["collection"]["stats"]["floor_price"].clone(),
             stats: v["collection"]["stats"].clone(),
         };
