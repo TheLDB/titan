@@ -785,17 +785,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "poise_disc_os"
-version = "0.1.0"
-dependencies = [
- "dotenv",
- "poise",
- "reqwest",
- "serde_json",
- "tokio",
-]
-
-[[package]]
 name = "poise_macros"
 version = "0.1.0"
 source = "git+https://github.com/kangalioo/poise?branch=master#9ba84988e7aeabe9cba2e2669217e720a5d2dee5"
@@ -1213,6 +1202,17 @@ name = "tinyvec_macros"
 version = "0.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "cda74da7e1a664f795bb1f8a87ec406fb89a02522cf6e50620d016add6dbbf5c"
+
+[[package]]
+name = "titan"
+version = "0.1.0"
+dependencies = [
+ "dotenv",
+ "poise",
+ "reqwest",
+ "serde_json",
+ "tokio",
+]
 
 [[package]]
 name = "tokio"
