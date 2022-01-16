@@ -17,6 +17,8 @@ async fn main() {
                 commands::source::source(),
                 commands::donate::donate(),
                 commands::help::help(),
+                commands::slug::slug(),
+                commands::monitor::monitor(),
             ],
             // configure framework here
             prefix_options: poise::PrefixFrameworkOptions {

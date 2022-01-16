@@ -14,10 +14,10 @@ pub async fn help(
             e.title("Titan Commands");
             e.description("Full command list for the OpenSea Monitor & Info Bot, Titan.");
             e.color(serenity::Colour::BLURPLE);
-            e.field("/collection", "Get the details of a collection by using their slug", false);
+            e.field("/collection ``collection-slug``", "Get the details of a collection by using their slug. Use /slug if you want more info on how to find a collection slug.", false);
+            e.field("/slug", "Get help on how to find a collection slug", false);
             e.field("/source", "View the source code of Titan on github", false);
             e.field("/donate", "Donate to keep Titan running", false)
-
         })
     }).await?;
 
