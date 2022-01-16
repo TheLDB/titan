@@ -2,6 +2,7 @@ extern crate dotenv;
 
 use dotenv::dotenv;
 pub mod commands;
+pub mod helpers;
 
 #[tokio::main]
 async fn main() {
