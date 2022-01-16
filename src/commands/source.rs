@@ -7,7 +7,7 @@ type Context<'a> = poise::Context<'a, Data, Error>;
 pub async fn source(
     ctx: Context<'_>,
 ) -> Result<(), Error> {
-    ctx.say("This bot was built in rust, and is fully open source. If you'd like to take a look, it's on github! https://github.com/TheLDB/opensea-discord-monitor\nIf you'd like to support me, use ``/donate`` or ``/support``").await?;
+    ctx.say("This bot was built in rust, and is fully open source. If you'd like to take a look, it's on github! https://github.com/TheLDB/titan\nIf you'd like to support me, use ``/donate`` or ``/support``").await?;
 
     Ok(())
 }
