@@ -12,12 +12,11 @@ async fn main() {
         .user_data_setup(move |_ctx, _ready, _framework| Box::pin(async move { Ok(()) }))
         .options(poise::FrameworkOptions {
             commands: vec![
-                commands::age::age(),
                 commands::collection::collection(),
                 commands::register::register(),
                 commands::source::source(),
-                commands::support::support(),
-                commands::support::donate(),
+                commands::donate::donate(),
+                commands::help::help(),
             ],
             // configure framework here
             prefix_options: poise::PrefixFrameworkOptions {
