@@ -6,9 +6,9 @@ type Context<'a> = poise::Context<'a, Data, Error>;
 #[poise::command(prefix_command, slash_command, track_edits)]
 pub async fn monitor(
     ctx: Context<'_>,
-    #[description = "Collection Slug"] slug: Option<String>,
-    #[description = "Amount the floor price has to move up or down"] threshold: Option<i32>,
-    #[description = "Send a notification if volume spikes?"] volume: Option<bool>,
+    #[description = "Collection Slug"] _slug: Option<String>,
+    #[description = "Amount the floor price has to move up or down"] _threshold: Option<i32>,
+    #[description = "Send a notification if volume spikes?"] _volume: Option<bool>,
 ) -> Result<(), Error> {
     // Eventually, this will connect to a database, and there will be tables such as:
     // Guilds (holds all guilds)
