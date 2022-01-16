@@ -15,6 +15,9 @@ async fn main() {
                 commands::age::age(),
                 commands::collection::collection(),
                 commands::register::register(),
+                commands::source::source(),
+                commands::support::support(),
+                commands::support::donate(),
             ],
             // configure framework here
             prefix_options: poise::PrefixFrameworkOptions {
